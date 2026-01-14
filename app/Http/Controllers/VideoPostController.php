@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\VideoPost\CreateVideoPostRequest;
 use App\Http\Requests\VideoPost\GetVideoPostRequest;
-use App\Http\Resources\CommentableWithCommentsResource;
 use App\Http\Resources\VideoPostResource;
+use App\Http\Resources\VideoPostWithCommentsResource;
 use App\Repositories\VideoPostRepository;
 use App\Services\VideoPostService;
 
@@ -18,10 +18,10 @@ final class VideoPostController extends Controller
         return new VideoPostResource($videoPost);
     }
 
-    public function get(GetVideoPostRequest $request, VideoPostService $service, int $id): CommentableWithCommentsResource
+    public function get(GetVideoPostRequest $request, VideoPostService $service, int $id): VideoPostWithCommentsResource
     {
         $videoPostWithComments = $service->getWithComments($id);
 
-        return new CommentableWithCommentsResource($videoPostWithComments);
+        return new VideoPostWithCommentsResource($videoPostWithComments);
     }
 }
